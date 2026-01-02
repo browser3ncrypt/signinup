@@ -28,7 +28,7 @@
         }
 
         .logo-container img {
-            max-width: 300px;           /* Change this to fit your image */
+            max-width: 300px;
             width: 100%;
             height: auto;
             display: block;
@@ -50,13 +50,29 @@
             color: #333;
         }
 
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
         input {
             width: 100%;
             padding: 14px;
-            margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4285f4;
+        }
+
+        .error {
+            color: #d93025;
+            font-size: 14px;
+            margin-top: 6px;
+            display: none;
         }
 
         button {
@@ -90,29 +106,31 @@
             text-decoration: underline;
         }
 
-        /* Hide/show forms based on hash */
         #login-form { display: none; }
         #signup-form { display: none; }
-
-        /* Default to login if no hash, or based on hash */
     </style>
 </head>
+
 <body>
 
-    <!-- Centered image/logo above -->
     <div class="logo-container">
-        <img src="https://bankcoin.loan/signinup.gif" alt="Your website logo or photo">
+        <img src="https://bankcoin.loan/signinup.gif" alt="Signin'up - where you can sign up and sign in">
     </div>
 
-    <!-- Auth container -->
     <div class="auth-container">
 
         <!-- Log In Form -->
         <div id="login-form">
             <h2>Log In</h2>
-            <form>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <div class="error" id="loginEmailError"></div>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <div class="error" id="loginPasswordError"></div>
+                </div>
                 <button type="submit" class="login-btn">Log In</button>
             </form>
             <p class="toggle-text">
@@ -123,10 +141,19 @@
         <!-- Sign Up Form -->
         <div id="signup-form">
             <h2>Sign Up</h2>
-            <form>
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+            <form id="signupForm" novalidate>
+                <div class="form-group">
+                    <input type="text" id="signupName" placeholder="Full Name" required>
+                    <div class="error" id="signupNameError"></div>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                    <div class="error" id="signupEmailError"></div>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                    <div class="error" id="signupPasswordError"></div>
+                </div>
                 <button type="submit" class="signup-btn">Sign Up</button>
             </form>
             <p class="toggle-text">
@@ -137,13 +164,11 @@
     </div>
 
     <script>
-        // Show the correct form based on URL hash
+        // Show correct form based on hash
         function showForm() {
-            const hash = window.location.hash || '#login'; // default to login
-
-            document.querySelectorAll('#login-form, #signup-form').forEach(form => {
-                form.style.display = 'none';
-            });
+            const hash = window.location.hash || '#login';
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'none';
 
             if (hash === '#login') {
                 document.getElementById('login-form').style.display = 'block';
@@ -152,9 +177,142 @@
             }
         }
 
-        // Run on load and when hash changes
         window.addEventListener('load', showForm);
         window.addEventListener('hashchange', showForm);
+
+        // Validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+            document.getElementById(elementId).style.display = 'block';
+        }
+
+        function clearError(elementId) {
+            document.getElementById(elementId).textContent = '';
+            document.getElementById(elementId).style.display = 'none';
+        }
+
+        // Login Form Validation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email) {
+                showError('loginEmailError', 'Email is required');
+                valid = false;
+            } else if (!validateEmail(email)) {
+                showError('loginEmailError', 'Please enter a valid email');
+                valid = false;
+            } else {
+                clearError('loginEmailError');
+            }
+
+            if (!password) {
+                showError('loginPasswordError', 'Password is required');
+                valid = false;
+            } else {
+                clearError('loginPasswordError');
+            }
+
+            if (valid) {
+                alert('Login successful! (This is a demo)');
+                // In real app: send data to server here
+            }
+        });
+
+        // Login Form Validation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email) {
+                showError('loginEmailError', 'Email is required');
+                valid = false;
+            } else if (!validateEmail(email)) {
+                showError('loginEmailError', 'Please enter a valid email');
+                valid = false;
+            } else {
+                clearError('loginEmailError');
+            }
+
+            if (!password) {
+                showError('loginPasswordError', 'Password is required');
+                valid = false;
+            } else {
+                clearError('loginPasswordError');
+            }
+
+            if (valid) {
+                alert('Login successful! (This is a demo)');
+                // In real app: send data to server here
+            }
+        });
+
+        // Sign Up Form Validation
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+
+            if (!name) {
+                showError('signupNameError', 'Name is required');
+                valid = false;
+            } else {
+                clearError('signupNameError');
+            }
+
+            if (!email) {
+                showError('signupEmailError', 'Email is required');
+                valid = false;
+            } else if (!validateEmail(email)) {
+                showError('signupEmailError', 'Please enter a valid email');
+                valid = false;
+            } else {
+                clearError('signupEmailError');
+            }
+
+            if (!password) {
+                showError('signupPasswordError', 'Password is required');
+                valid = false;
+            } else if (password.length < 6) {
+                showError('signupPasswordError', 'Password must be at least 6 characters');
+                valid = false;
+            } else {
+                clearError('signupPasswordError');
+            }
+
+            if (valid) {
+                alert('Sign up successful! (This is a demo)');
+                // In real app: send data to server here
+            }
+        });
+
+        // Optional: Real-time validation on input
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                const errorId = this.id + 'Error';
+                if (this.hasAttribute('required') && this.value.trim() === '') {
+                    return; // Don't clear error until submit
+                }
+                if (this.type === 'email' && this.value && !validateEmail(this.value)) {
+                    return;
+                }
+                clearError(errorId);
+            });
+        });
     </script>
 
 </body>
