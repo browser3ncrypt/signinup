@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignInUp.com - Simple Authentication & Sign Up</title>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .logo-container {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .logo-container img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .auth-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-btn:hover { opacity: 0.9; }
+
+        .google { background: #ffffff; color: #333; border: 1px solid #ddd; }
+        .facebook { background: #3b5998; }
+
+        .or {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            color: #aaa;
+        }
+
+        .or::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .or span {
+            background: white;
+            padding: 0 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4285f4;
+        }
+
+        .error {
+            color: #d93025;
+            font-size: 14px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            margin: 20px 0 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .login-btn { background-color: #4285f4; }
+        .signup-btn { background-color: #34a853; }
+
+        button[type="submit"]:hover { opacity: 0.9; }
+
+        .toggle-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .toggle-text a {
+            color: #4285f4;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toggle-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <img src="https://bankcoin.loan/signinup.gif" alt="SignInUp.com Logo">
+    </div>
+
+    <div class="auth-container">
+
+        <!-- Log In Form -->
+        <div id="login-form">
+            <h2>Log In</h2>
+            <div class="social-buttons">
+                <div id="google-login-button"></div>
+                <button type="button" class="social-btn facebook" onclick="fbLogin()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.017 24 12.073z"/></svg>
+                    Continue with Facebook
+                </button>
+            </div>
+            <div class="or"><span>OR</span></div>
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <div class="error" id="loginEmailError"></div>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <div class="error" id="loginPasswordError"></div>
+                </div>
+                <button type="submit" class="login-btn">Log In</button>
+            </form>
+            <p class="toggle-text">
+                Don't have an account? <a onclick="switchToSignup()">Sign Up</a>
+            </p>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div id="signup-form" style="display: none;">
+            <h2>Sign Up</h2>
+            <div class="social-buttons">
+                <div id="google-signup-button"></div>
+                <button type="button" class="social-btn facebook" onclick="fbLogin()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.017 24 12.073z"/></svg>
+                    Continue with Facebook
+                </button>
+            </div>
+            <div class="or"><span>OR</span></div>
+            <form id="signupForm" novalidate>
+                <div class="form-group">
+                    <input type="text" id="signupName" placeholder="Full Name" required>
+                    <div class="error" id="signupNameError"></div>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                    <div class="error" id="signupEmailError"></div>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                    <div class="error" id="signupPasswordError"></div>
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+            <p class="toggle-text">
+                Already have an account? <a onclick="switchToLogin()">Log In</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // Replace with your actual credentials
+        const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID_HERE';
+        const FB_APP_ID = 'YOUR_FACEBOOK_APP_ID_HERE';
+
+        // Switch forms (since hash links were unreliable in your code)
+        function switchToLogin() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
+            clearAllErrors();
+        }
+
+        function switchToSignup() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+            clearAllErrors();
+        }
+
+        // Initial show login
+        switchToLogin();
+
+        // Validation helpers
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+        function showError(elementId, message) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.style.display = 'block';
+        }
+
+        function clearError(elementId) {
+            const el = document.getElementById(elementId);
+            el.textContent = '';
+            el.style.display = 'none';
+        }
+
+        function clearAllErrors() {
+            document.querySelectorAll('.error').forEach(el => {
+                el.textContent = '';
+                el.style.display = 'none';
+            });
+        }
+
+        // Google OAuth
+        function handleGoogleCredentialResponse(response) {
+            const payload = JSON.parse(atob(response.credential.split('.')[1]));
+            console.log('Google User:', payload);
+            alert(`Signed in with Google as \( {payload.name} ( \){payload.email})\n(Demo - send token to backend)`);
+        }
+
+        window.onload = function () {
+            if (GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID_HERE') {
+                google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: handleGoogleCredentialResponse
+                });
+
+                google.accounts.id.renderButton(document.getElementById('google-login-button'), { theme: 'outline', size: 'large', text: 'continue_with', width: '100%' });
+                google.accounts.id.renderButton(document.getElementById('google-signup-button'), { theme: 'outline', size: 'large', text: 'signup_with', width: '100%' });
+
+                google.accounts.id.prompt();
+            }
+        };
+
+        // Facebook OAuth
+        window.fbAsyncInit = function() {
+            if (FB_APP_ID !== 'YOUR_FACEBOOK_APP_ID_HERE') {
+                FB.init({
+                    appId: FB_APP_ID,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v20.0'
+                });
+            }
+        };
+
+        function fbLogin() {
+            if (FB_APP_ID === 'YOUR_FACEBOOK_APP_ID_HERE') {
+                alert('Set your Facebook App ID!');
+                return;
+            }
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    FB.api('/me', {fields: 'name,email'}, function(profile) {
+                        alert(`Signed in with Facebook as \( {profile.name} ( \){profile.email || 'no email'})\n(Demo - send token to backend)`);
+                    });
+                } else {
+                    alert('Facebook login failed.');
+                }
+            }, {scope: 'public_profile,email'});
+        }
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            clearAllErrors();
+            let valid = true;
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !validateEmail(email)) {
+                showError('loginEmailError', 'Valid email required');
+                valid = false;
+            }
+
+            if (!password) {
+                showError('loginPasswordError', 'Password required');
+                valid = false;
+            }
+
+            if (valid) {
+                alert('Log In successful! (Demo)');
+            }
+        });
+
+        // Sign Up Form (stronger password)
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            clearAllErrors();
+            let valid = true;
+
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+
+            if (!name || name.length < 2) {
+                showError('signupNameError', 'Name required (min 2 chars)');
+                valid = false;
+            }
+
+            if (!email || !validateEmail(email)) {
+                showError('signupEmailError', 'Valid email required');
+                valid = false;
+            }
+
+            if (!password || !passwordRegex.test(password)) {
+                showError('signupPasswordError', 'Password: min 8 chars, with uppercase, lowercase & number');
+                valid = false;
+            }
+
+            if (valid) {
+                alert('Sign Up successful! (Demo)');
+            }
+        });
+    </script>
+
+</body>
+</html>
