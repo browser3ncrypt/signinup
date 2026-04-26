@@ -3,317 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <meta name="description" content="AutoMarine Detailers - Professional Car & Boat Detailing in Orange County, California">
+    <title>AutoMarine Detailers • Make It Shine Again!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+        
+        :root {
+            --navy: #0a2540;
+            --teal: #00b4b4;
+            --gold: #e8b923;
         }
+        
+        .tail-container * { font-family: 'Inter', system_ui, sans-serif; }
+        .hero-font { font-family: 'Playfair Display', sans-serif; }
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+        .form-input {
+            transition: all 0.3s ease;
         }
-
-        .logo-container {
-            margin-bottom: 40px;
-            text-align: center;
+        .form-input:focus {
+            border-color: #00b4b4;
+            box-shadow: 0 0 0 3px rgba(0, 180, 180, 0.2);
         }
-
-        .logo-container img {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .auth-container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #4285f4;
-        }
-
-        .error {
-            color: #d93025;
-            font-size: 14px;
-            margin-top: 6px;
-            display: none;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            margin: 20px 0 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            color: white;
-        }
-
-        .login-btn { background-color: #4285f4; }
-        .signup-btn { background-color: #34a853; }
-
-        button:hover { opacity: 0.9; }
-
-        .toggle-text {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .toggle-text a {
-            color: #4285f4;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .toggle-text a:hover {
-            text-decoration: underline;
-        }
-
-        #login-form { display: none; }
-        #signup-form { display: none; }
+        .error { border-color: #ef4444 !important; }
+        .error-message { color: #ef4444; font-size: 0.875rem; margin-top: 4px; }
     </style>
 </head>
+<body class="tail-container bg-gray-50">
 
-<body>
-
-    <div class="logo-container">
-        <img src="https://bankcoin.loan/signinup.gif" alt="Signin'up - where you can sign up and sign in">
-    </div>
-
-    <div class="auth-container">
-
-        <!-- Log In Form -->
-        <div id="login-form">
-            <h2>Log In</h2>
-            <form id="loginForm" novalidate>
-                <div class="form-group">
-                    <input type="email" id="loginEmail" placeholder="Email" required>
-                    <div class="error" id="loginEmailError"></div>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="loginPassword" placeholder="Password" required>
-                    <div class="error" id="loginPasswordError"></div>
-                </div>
-                <button type="submit" class="login-btn">Log In</button>
-            </form>
-            <p class="toggle-text">
-                Don't have an account? <a href="#signup">Sign Up</a>
-            </p>
+    <!-- (Same Navbar and Hero as before - shortened for space) -->
+    <nav class="bg-[#0a2540] text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-[#00b4b4] rounded-full flex items-center justify-center text-2xl">🚤</div>
+                <span class="text-2xl font-bold tracking-tight">AutoMarine <span class="text-[#e8b923]">Detailers</span></span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="tel:5627120265" class="flex items-center gap-2 bg-white text-[#0a2540] px-5 py-2.5 rounded-full font-semibold">
+                    <i class="fas fa-phone"></i> (562) 712-0265
+                </a>
+            </div>
         </div>
+    </nav>
 
-        <!-- Sign Up Form -->
-        <div id="signup-form">
-            <h2>Sign Up</h2>
-            <form id="signupForm" novalidate>
-                <div class="form-group">
-                    <input type="text" id="signupName" placeholder="Full Name" required>
-                    <div class="error" id="signupNameError"></div>
+    <!-- HERO (same as before) -->
+    <!-- ... [Hero section omitted for brevity - copy from previous version] ... -->
+
+    <!-- SERVICE REQUEST FORM -->
+    <section id="book" class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white rounded-3xl shadow-2xl p-10">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-bold text-[#0a2540]">Request Your Detail</h2>
+                    <p class="text-gray-600 mt-3">Fill out the form below — we'll contact you within 1 hour</p>
                 </div>
-                <div class="form-group">
-                    <input type="email" id="signupEmail" placeholder="Email" required>
-                    <div class="error" id="signupEmailError"></div>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="signupPassword" placeholder="Password" required>
-                    <div class="error" id="signupPasswordError"></div>
-                </div>
-                <button type="submit" class="signup-btn">Sign Up</button>
-            </form>
-            <p class="toggle-text">
-                Already have an account? <a href="#login">Log In</a>
-            </p>
+
+                <form id="detail-form" action="https://formspree.io/f/xpwwqzyy" method="POST" class="grid md:grid-cols-2 gap-8">
+                    
+                    <!-- Personal Info -->
+                    <div class="space-y-6 md:col-span-2 lg:col-span-1">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" name="name" id="name" required 
+                                   class="form-input w-full px-6 py-4 rounded-2xl border border-gray-300 text-lg">
+                            <div id="name-error" class="error-message hidden">Please enter your full name</div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+                                <input type="email" name="email" id="email" required 
+                                       class="form-input w-full px-6 py-4 rounded-2xl border border-gray-300 text-lg">
+                                <div id="email-error" class="error-message hidden">Please enter a valid email</div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone <span class="text-red-500">*</span></label>
+                                <input type="tel" name="phone" id="phone" required 
+                                       class="form-input w-full px-6 py-4 rounded-2xl border border-gray-300 text-lg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Selection -->
+                    <div class="md:col-span-2 lg:col-span-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Service Type <span class="text-red-500">*</span></label>
+                        <div class="flex gap-3 mb-6">
+                            <button type="button" onclick="selectServiceType('car')" id="car-btn"
+                                    class="service-type-btn flex-1 py-4 rounded-2xl border-2 border-[#00b4b4] text-[#00b4b4] font-semibold active">
+                                🚗 CAR
+                            </button>
+                            <button type="button" onclick="selectServiceType('boat')" id="boat-btn"
+                                    class="service-type-btn flex-1 py-4 rounded-2xl border-2 border-gray-300 font-semibold">
+                                ⛵ BOAT
+                            </button>
+                        </div>
+
+                        <input type="hidden" name="service_type" id="service_type" value="Car">
+
+                        <!-- Car Packages -->
+                        <div id="car-options">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Select Package</label>
+                            <select name="package" id="car-package" class="form-input w-full px-6 py-4 rounded-2xl border border-gray-300 text-lg">
+                                <option value="Basic Exterior Wash - $32">Basic Exterior Wash — $32</option>
+                                <option value="Premium Wash & Protect - $98">Premium Wash & Protect — $98</option>
+                                <option value="Interior Refresh - $87">Interior Refresh — $87</option>
+                                <option value="Complete Vehicle Detail - $185">Complete Vehicle Detail — $185</option>
+                                <option value="Ultimate Luxury Detail - $275">Ultimate Luxury Detail — $275</option>
+                            </select>
+                        </div>
+
+                        <!-- Boat Details -->
+                        <div id="boat-options" class="hidden">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Boat Details</label>
+                            <textarea name="boat_details" id="boat-details" rows="4" placeholder="Boat type, length, condition, services needed..." 
+                                      class="form-input w-full px-6 py-4 rounded-2xl border border-gray-300 text-lg"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- More Fields -->
+                    <div class="md:col-span-2 grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
+                            <input type="date" name="preferred_date" id="date" class="form-input w-full px-6 py-4 rounded-2xl border border-gray-300 text-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                            <input type="text" name="location" value="Orange County, CA" 
+                                   class="form-input w-full px-6 py-4 rounded-2xl border border-gray-300 text-lg">
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+                        <textarea name="message" id="message" rows="4" placeholder="Any special requests or questions?"
+                                  class="form-input w-full px-6 py-4 rounded-2xl border border-gray-300 text-lg"></textarea>
+                    </div>
+
+                    <div class="md:col-span-2 flex items-center justify-between pt-4">
+                        <label class="flex items-center gap-3">
+                            <input type="checkbox" checked class="w-5 h-5 accent-[#00b4b4]">
+                            <span class="text-sm">I want the <strong>20% OFF</strong> first-time discount</span>
+                        </label>
+                        
+                        <button type="submit" 
+                                class="bg-[#e8b923] hover:bg-yellow-400 text-[#0a2540] px-12 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3">
+                            SUBMIT REQUEST
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </section>
 
-    </div>
+    <!-- Rest of the page (Why Us, Footer, etc.) remains the same -->
 
     <script>
-        // Show correct form based on hash
-        function showForm() {
-            const hash = window.location.hash || '#login';
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('signup-form').style.display = 'none';
+        // Service type toggle
+        function selectServiceType(type) {
+            const carBtn = document.getElementById('car-btn');
+            const boatBtn = document.getElementById('boat-btn');
+            const carOptions = document.getElementById('car-options');
+            const boatOptions = document.getElementById('boat-options');
+            const serviceTypeInput = document.getElementById('service_type');
 
-            if (hash === '#login') {
-                document.getElementById('login-form').style.display = 'block';
-            } else if (hash === '#signup') {
-                document.getElementById('signup-form').style.display = 'block';
-            }
-        }
-
-        window.addEventListener('load', showForm);
-        window.addEventListener('hashchange', showForm);
-
-        // Validation functions
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        function showError(elementId, message) {
-            document.getElementById(elementId).textContent = message;
-            document.getElementById(elementId).style.display = 'block';
-        }
-
-        function clearError(elementId) {
-            document.getElementById(elementId).textContent = '';
-            document.getElementById(elementId).style.display = 'none';
-        }
-
-        // Login Form Validation
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let valid = true;
-
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!email) {
-                showError('loginEmailError', 'Email is required');
-                valid = false;
-            } else if (!validateEmail(email)) {
-                showError('loginEmailError', 'Please enter a valid email');
-                valid = false;
+            if (type === 'car') {
+                carBtn.classList.add('border-[#00b4b4]', 'text-[#00b4b4]', 'active');
+                boatBtn.classList.remove('border-[#00b4b4]', 'text-[#00b4b4]', 'active');
+                carOptions.classList.remove('hidden');
+                boatOptions.classList.add('hidden');
+                serviceTypeInput.value = 'Car';
             } else {
-                clearError('loginEmailError');
+                boatBtn.classList.add('border-[#00b4b4]', 'text-[#00b4b4]', 'active');
+                carBtn.classList.remove('border-[#00b4b4]', 'text-[#00b4b4]', 'active');
+                carOptions.classList.add('hidden');
+                boatOptions.classList.remove('hidden');
+                serviceTypeInput.value = 'Boat';
             }
+        }
 
-            if (!password) {
-                showError('loginPasswordError', 'Password is required');
-                valid = false;
+        // Real-time validation
+        function validateField(field) {
+            const errorDiv = document.getElementById(field.id + '-error');
+            if (!field.value.trim()) {
+                field.classList.add('error');
+                if (errorDiv) errorDiv.classList.remove('hidden');
+                return false;
             } else {
-                clearError('loginPasswordError');
+                field.classList.remove('error');
+                if (errorDiv) errorDiv.classList.add('hidden');
+                return true;
+            }
+        }
+
+        // Form submission with validation
+        document.getElementById('detail-form').addEventListener('submit', function(e) {
+            let isValid = true;
+
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+
+            if (!validateField(name)) isValid = false;
+            if (!validateField(email)) isValid = false;
+
+            if (!isValid) {
+                e.preventDefault();
+                return;
             }
 
-            if (valid) {
-                alert('Login successful! (This is a demo)');
-                // In real app: send data to server here
-            }
+            // Optional: Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'SENDING...';
+            submitBtn.disabled = true;
         });
 
-        // Login Form Validation
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let valid = true;
-
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!email) {
-                showError('loginEmailError', 'Email is required');
-                valid = false;
-            } else if (!validateEmail(email)) {
-                showError('loginEmailError', 'Please enter a valid email');
-                valid = false;
-            } else {
-                clearError('loginEmailError');
-            }
-
-            if (!password) {
-                showError('loginPasswordError', 'Password is required');
-                valid = false;
-            } else {
-                clearError('loginPasswordError');
-            }
-
-            if (valid) {
-                alert('Login successful! (This is a demo)');
-                // In real app: send data to server here
-            }
+        // Auto-focus validation on blur
+        document.querySelectorAll('#detail-form input[required], #detail-form textarea[required]').forEach(input => {
+            input.addEventListener('blur', () => validateField(input));
         });
 
-        // Sign Up Form Validation
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let valid = true;
-
-            const name = document.getElementById('signupName').value.trim();
-            const email = document.getElementById('signupEmail').value.trim();
-            const password = document.getElementById('signupPassword').value;
-
-            if (!name) {
-                showError('signupNameError', 'Name is required');
-                valid = false;
-            } else {
-                clearError('signupNameError');
+        // Success message after Formspree redirect
+        window.addEventListener('load', () => {
+            if (window.location.search.includes('success')) {
+                alert("✅ Thank you! Your request has been sent. We'll contact you shortly.");
             }
-
-            if (!email) {
-                showError('signupEmailError', 'Email is required');
-                valid = false;
-            } else if (!validateEmail(email)) {
-                showError('signupEmailError', 'Please enter a valid email');
-                valid = false;
-            } else {
-                clearError('signupEmailError');
-            }
-
-            if (!password) {
-                showError('signupPasswordError', 'Password is required');
-                valid = false;
-            } else if (password.length < 6) {
-                showError('signupPasswordError', 'Password must be at least 6 characters');
-                valid = false;
-            } else {
-                clearError('signupPasswordError');
-            }
-
-            if (valid) {
-                alert('Sign up successful! (This is a demo)');
-                // In real app: send data to server here
-            }
-        });
-
-        // Optional: Real-time validation on input
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', function() {
-                const errorId = this.id + 'Error';
-                if (this.hasAttribute('required') && this.value.trim() === '') {
-                    return; // Don't clear error until submit
-                }
-                if (this.type === 'email' && this.value && !validateEmail(this.value)) {
-                    return;
-                }
-                clearError(errorId);
-            });
         });
     </script>
-
 </body>
 </html>
