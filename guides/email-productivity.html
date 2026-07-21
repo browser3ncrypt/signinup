@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create a Custom Email with Cloudflare + Gmail | signinup.com</title>
+    <meta name="description" content="Learn how to register a domain on Cloudflare and set up free Email Routing to forward custom emails to your Gmail inbox.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #f97316;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            line-height: 1.7;
+            color: #1f2937;
+            background: #f9fafb;
+        }
+        
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #111827;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.2rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.35rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .post-meta {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        article {
+            max-width: 800px;
+            margin: 4rem auto;
+            background: white;
+            padding: 3rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
+        }
+        
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            margin: 2.5rem 0 1rem;
+            color: #111827;
+        }
+        
+        h3 {
+            font-size: 1.35rem;
+            margin: 2rem 0 0.75rem;
+            color: #1f2937;
+        }
+        
+        p, li {
+            font-size: 1.1rem;
+            color: #374151;
+        }
+        
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .step {
+            background: #f8fafc;
+            border-left: 5px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .code {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        .warning {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            background: #ea580c;
+            transform: translateY(-2px);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            article {
+                padding: 2rem 1.25rem;
+                margin: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <a href="#" class="logo">signin<span>up</span>.com</a>
+            <nav>
+                <a href="#" style="margin-right: 1.5rem; text-decoration: none; color: #374151;">Blog</a>
+                <a href="#" style="text-decoration: none; color: #374151;">Tools</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Get a Professional Custom Email for Free</h1>
+            <p class="subtitle">Register a domain with Cloudflare and route emails to your existing Gmail account. No extra fees, full privacy.</p>
+            <div class="post-meta">
+                <span>By signinup Team</span>
+                <span>·</span>
+                <span>Updated July 2026</span>
+                <span>·</span>
+                <span>15 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <article class="container">
+        <p>Want a professional email address like <strong>you@yourdomain.com</strong> without paying for Google Workspace or Microsoft 365? Cloudflare Email Routing makes it completely free and simple. You can forward all emails sent to your custom domain directly to your Gmail inbox.</p>
+        
+        <h2>Why This Setup?</h2>
+        <ul>
+            <li>Completely free (just the domain registration cost)</li>
+            <li>Private – Cloudflare doesn't read your emails</li>
+            <li>Easy to manage multiple custom addresses</li>
+            <li>Works with any existing Gmail account</li>
+            <li>Excellent deliverability</li>
+        </ul>
+
+        <h2>Prerequisites</h2>
+        <p>Before starting:</p>
+        <ul>
+            <li>A Cloudflare account (free)</li>
+            <li>A domain name (register through Cloudflare for easiest setup)</li>
+            <li>A Gmail account</li>
+        </ul>
+
+        <div class="step">
+            <h3>Step 1: Register a Domain with Cloudflare</h3>
+            <ol>
+                <li>Go to <a href="https://dash.cloudflare.com/" target="_blank">dash.cloudflare.com</a> and sign up / log in.</li>
+                <li>Click <strong>Add a domain</strong> or <strong>Register domain</strong>.</li>
+                <li>Search for your desired domain name and complete the purchase (Cloudflare offers competitive pricing with WHOIS privacy included).</li>
+                <li>Once registered, Cloudflare automatically becomes your DNS provider.</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Enable Cloudflare Email Routing</h3>
+            <ol>
+                <li>In your Cloudflare dashboard, select your domain.</li>
+                <li>Navigate to <strong>Email</strong> &gt; <strong>Email Routing</strong> in the left sidebar.</li>
+                <li>Click <strong>Enable Email Routing</strong> or <strong>Onboard Domain</strong>.</li>
+                <li>Cloudflare will automatically add the required <strong>MX records</strong> (and a TXT record for verification).</li>
+                <li>Confirm the DNS changes. Propagation usually takes a few minutes to an hour.</li>
+            </ol>
+            <p class="warning"><strong>Note:</strong> Remove any existing MX records from other providers first to avoid conflicts.</p>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Add and Verify Your Gmail Destination Address</h3>
+            <p>This is the key step for receiving emails in Gmail.</p>
+            <ol>
+                <li>In Email Routing, go to the <strong>Destination Addresses</strong> tab (account-level, not per-domain).</li>
+                <li>Click to add a new destination and enter your full Gmail address (e.g., <code>yourname@gmail.com</code>).</li>
+                <li>Cloudflare will immediately send a verification email to that Gmail address.</li>
+                <li>Open your Gmail inbox, find the email from Cloudflare (check spam if needed), and click the <strong>Verify email address</strong> link.</li>
+                <li>Once verified, your Gmail address is ready to receive forwarded emails from any of your Cloudflare domains.</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Create Custom Email Routing Rules</h3>
+            <ol>
+                <li>Go back to your domain's Email Routing page.</li>
+                <li>Click <strong>Create routing rule</strong>.</li>
+                <li>Set the <strong>Email pattern</strong>:
+                    <ul>
+                        <li><code>hello</code> → forwards <code>hello@yourdomain.com</code></li>
+                        <li><code>*</code> for catch-all (everything@yourdomain.com)</li>
+                    </ul>
+                </li>
+                <li>Select <strong>Send to an email</strong> and choose your verified Gmail address as the destination.</li>
+                <li>Save the rule.</li>
+            </ol>
+        </div>
+
+        <h2>Testing Your Setup</h2>
+        <p>Send a test email from another account to your new custom address (e.g., <code>test@yourdomain.com</code>). It should appear in your Gmail inbox within seconds to a minute.</p>
+
+        <div class="warning">
+            <strong>Important:</strong> Cloudflare Email Routing is for <strong>receiving</strong> only. To reply with your custom domain from Gmail, set up "Send mail as" using Gmail's SMTP (requires an App Password if 2FA is enabled).
+        </div>
+
+        <h2>Troubleshooting Common Issues</h2>
+        <ul>
+            <li><strong>Verification email not received:</strong> Check spam, allow <code>no-reply@notify.cloudflare.com</code>, and try again.</li>
+            <li><strong>Emails not forwarding:</strong> Verify MX records in Cloudflare DNS are correct and have priority 1.</li>
+            <li><strong>Domain not onboarded:</strong> Make sure Email Routing is enabled for the specific domain.</li>
+        </ul>
+
+        <h2>Bonus Tips</h2>
+        <ul>
+            <li>Use catch-all routing for maximum flexibility.</li>
+            <li>Create multiple custom addresses for different purposes (sales@, support@, personal@).</li>
+            <li>Monitor activity in the Email Routing analytics dashboard.</li>
+        </ul>
+
+        <p style="margin-top: 3rem; text-align: center; font-style: italic;">That's it! You now have a professional custom email address powered by Cloudflare and delivered straight to Gmail.</p>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <a href="https://dash.cloudflare.com/" class="btn" target="_blank">Start with Cloudflare Now →</a>
+        </div>
+    </article>
+
+    <footer>
+        <div class="container">
+            <p style="font-size: 1.1rem; color: white; margin-bottom: 1rem;">&copy; 2026 signinup.com • Learn. Build. Grow.</p>
+            <p>This is a static guide page. All information is for educational purposes.</p>
+        </div>
+    </footer>
+</body>
+</html>
