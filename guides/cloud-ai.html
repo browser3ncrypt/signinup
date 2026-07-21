@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Build & Deploy an LLM Chatbot with Cloudflare LLM Chat App Template | SignInUp.com</title>
+    <meta name="description" content="Step-by-step guide to deploy a private LLM-powered chatbot using Cloudflare Workers AI and the official llm-chat-app-template.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 text-zinc-900">
+    <!-- Navbar -->
+    <nav class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-violet-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">S</div>
+                <div class="font-semibold text-2xl tracking-tighter">SignInUp</div>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="../index.html" class="hover:text-violet-600">Home</a>
+                <a href="cloud-ai.html" class="text-violet-600 font-semibold">Cloud & AI</a>
+                <a href="#" class="hover:text-violet-600">All Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <div class="inline-flex items-center gap-2 bg-violet-100 text-violet-700 px-4 py-1.5 rounded-full text-sm mb-6">
+            <i class="fa-solid fa-brain"></i>
+            Cloud & AI
+        </div>
+        
+        <h1 class="heading-font text-5xl font-semibold tracking-tighter leading-none mb-6">
+            Build & Deploy Your Own LLM Chatbot with Cloudflare Workers AI
+        </h1>
+        <p class="text-xl text-zinc-600 mb-8">
+            Use the official <code>llm-chat-app-template</code> to create a private, blazing-fast AI chatbot in minutes — completely free with Cloudflare's generous limits.
+        </p>
+
+        <div class="flex items-center gap-6 text-sm text-zinc-500 mb-12">
+            <div>Updated July 2026</div>
+            <div>12 min read</div>
+            <div class="flex items-center gap-1">
+                <i class="fa-solid fa-star text-amber-500"></i>
+                Beginner-Friendly
+            </div>
+        </div>
+
+        <div class="prose prose-zinc max-w-none">
+            <h2 class="heading-font text-3xl font-semibold mt-16 mb-6">Why Build with Cloudflare?</h2>
+            <ul class="list-disc pl-6 space-y-3 text-lg">
+                <li>Serverless & global edge deployment</li>
+                <li>Access to powerful open models like Llama 3.1, Gemma, Mistral</li>
+                <li>Streaming responses for real-time chat</li>
+                <li>No API keys or expensive bills for moderate usage</li>
+                <li>Easy to embed anywhere</li>
+            </ul>
+
+            <h2 class="heading-font text-3xl font-semibold mt-16 mb-8">Step-by-Step Guide</h2>
+
+            <!-- Step 1 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">1</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Prerequisites</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Cloudflare account (free)</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Node.js 18+ installed</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Wrangler CLI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">2</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Create the Project</h3>
+                        <div class="code-block rounded-2xl p-6 text-sm font-mono overflow-x-auto mb-6">
+                            npm create cloudflare@latest -- --template cloudflare/llm-chat-app-template my-ai-chatbot
+                        </div>
+                        <p class="text-zinc-600">Or clone the repo directly:</p>
+                        <div class="code-block rounded-2xl p-6 text-sm font-mono overflow-x-auto">
+                            git clone https://github.com/cloudflare/templates.git<br>
+                            cd templates/llm-chat-app<br>
+                            npm install
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">3</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Install Dependencies & Generate Types</h3>
+                        <div class="code-block rounded-2xl p-6 text-sm font-mono overflow-x-auto">
+                            cd my-ai-chatbot<br>
+                            npm install<br>
+                            npm run cf-typegen
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">4</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Run Locally</h3>
+                        <div class="code-block rounded-2xl p-6 text-sm font-mono overflow-x-auto mb-4">
+                            npm run dev
+                        </div>
+                        <p class="text-emerald-600 font-medium">Open http://localhost:8787 to test your chatbot locally.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">5</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Deploy to Cloudflare</h3>
+                        <div class="code-block rounded-2xl p-6 text-sm font-mono overflow-x-auto">
+                            npm run deploy
+                        </div>
+                        <p class="mt-4 text-zinc-600">After deployment, you'll get a URL like <code>https://my-ai-chatbot.yourusername.workers.dev</code></p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="heading-font text-3xl font-semibold mt-16 mb-8">Customize the Model</h2>
+            <p class="mb-6">Edit <code>wrangler.toml</code> or the worker code to change the model (e.g., <code>@cf/meta/llama-3.1-8b-instruct</code>).</p>
+
+            <h2 class="heading-font text-3xl font-semibold mt-16 mb-8">Embed the Chatbot as an iFrame Widget</h2>
+            <p class="mb-6">After deployment, you can embed your chatbot on any website using an iframe.</p>
+            
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8">
+                <h4 class="font-semibold mb-4">Example HTML Embed Code:</h4>
+                <div class="code-block rounded-2xl p-6 text-sm font-mono overflow-x-auto">
+&lt;iframe 
+    src="https://YOUR-CHATBOT.workers.dev" 
+    width="400" 
+    height="650" 
+    style="border: none; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"
+    allow="clipboard-write"&gt;
+&lt;/iframe&gt;
+                </div>
+                <p class="mt-6 text-sm text-zinc-500">Place this code anywhere in your HTML page. Adjust width/height as needed.</p>
+            </div>
+
+            <div class="mt-16 p-8 bg-amber-50 border border-amber-200 rounded-3xl">
+                <h3 class="font-semibold text-amber-800 mb-3">Pro Tips</h3>
+                <ul class="space-y-3 text-amber-800">
+                    <li>• Use <code>@cf/meta/llama-3.1-8b-instruct</code> for great performance</li>
+                    <li>• Add custom system prompts in the worker code</li>
+                    <li>• Enable streaming for better UX</li>
+                    <li>• Monitor usage in the Cloudflare dashboard</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-20 text-center">
+            <a href="https://dash.cloudflare.com/" target="_blank" 
+               class="inline-flex items-center gap-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold px-10 py-4 rounded-2xl text-lg transition">
+                Start Building Now 
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <footer class="bg-zinc-900 text-zinc-400 py-16 mt-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <div class="w-9 h-9 bg-violet-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">S</div>
+                <span class="text-2xl font-semibold text-white">SignInUp.com</span>
+            </div>
+            <p>Community-powered guides for developers & creators</p>
+        </div>
+    </footer>
+</body>
+</html>
