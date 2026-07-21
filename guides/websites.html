@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Deploy a Static HTML Site with Cloudflare Pages + Custom Domain | SignInUp.com</title>
+    <meta name="description" content="Free, fast, and secure way to host your static website on Cloudflare Pages with a custom domain.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: ui-monospace, monospace;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 text-zinc-900">
+    <!-- Navbar -->
+    <nav class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">S</div>
+                <div class="font-semibold text-2xl tracking-tighter">SignInUp</div>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="../index.html" class="hover:text-sky-600">Home</a>
+                <a href="cloud-ai.html" class="hover:text-sky-600">Cloud & AI</a>
+                <a href="#" class="text-sky-600 font-semibold">Hosting Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <div class="inline-flex items-center gap-2 bg-sky-100 text-sky-700 px-4 py-1.5 rounded-full text-sm mb-6">
+            <i class="fa-solid fa-globe"></i>
+            Hosting • Cloudflare Pages
+        </div>
+        
+        <h1 class="heading-font text-5xl font-semibold tracking-tighter leading-none mb-6">
+            Deploy a Static HTML Website on Cloudflare Pages with Custom Domain
+        </h1>
+        <p class="text-xl text-zinc-600 mb-8">
+            The fastest and cheapest way to host your static site globally. Zero cost for most projects.
+        </p>
+
+        <div class="flex items-center gap-6 text-sm text-zinc-500 mb-12">
+            <div>Updated July 2026</div>
+            <div>10 min read</div>
+        </div>
+
+        <div class="prose prose-zinc max-w-none">
+            <h2 class="heading-font text-3xl font-semibold mt-12 mb-6">Why Cloudflare Pages?</h2>
+            <ul class="list-disc pl-6 space-y-3 text-lg">
+                <li>Lightning-fast global CDN</li>
+                <li>Free custom domains + SSL</li>
+                <li>Automatic deployments from Git</li>
+                <li>Wrangler CLI support for static assets</li>
+                <li>Generous free tier (500 builds/month)</li>
+            </ul>
+
+            <h2 class="heading-font text-3xl font-semibold mt-16 mb-8">Step-by-Step Deployment</h2>
+
+            <!-- Step 1 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">1</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Prepare Your Static Site</h3>
+                        <p class="mb-4">Make sure your project has an <code>index.html</code> file in the root or a <code>public</code> / <code>dist</code> folder.</p>
+                        <div class="code-block rounded-2xl p-6 text-sm overflow-x-auto">
+                            my-static-site/<br>
+                            ├── index.html<br>
+                            ├── about.html<br>
+                            └── assets/
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">2</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Deploy Using Wrangler (CLI)</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <p class="font-medium mb-2">Install Wrangler:</p>
+                                <div class="code-block rounded-2xl p-6 text-sm">npm install -g wrangler</div>
+                            </div>
+                            <div>
+                                <p class="font-medium mb-2">Login to Cloudflare:</p>
+                                <div class="code-block rounded-2xl p-6 text-sm">wrangler login</div>
+                            </div>
+                            <div>
+                                <p class="font-medium mb-2">Deploy the site:</p>
+                                <div class="code-block rounded-2xl p-6 text-sm">
+                                    wrangler pages deploy ./<br>
+                                    # or specify directory<br>
+                                    wrangler pages deploy dist/
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">3</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Register a Domain (Optional)</h3>
+                        <ol class="list-decimal pl-6 space-y-4 text-zinc-700">
+                            <li>Go to <a href="https://dash.cloudflare.com" class="text-sky-600 hover:underline">Cloudflare Dashboard</a></li>
+                            <li>Click <strong>Register Domain</strong></li>
+                            <li>Search and purchase your domain (privacy included)</li>
+                            <li>Cloudflare automatically sets it up as your DNS provider</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="step-number w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">4</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-4">Add Custom Domain to Your Pages Project</h3>
+                        <ol class="list-decimal pl-6 space-y-4 text-zinc-700">
+                            <li>Go to <strong>Pages</strong> → Your Project in the dashboard</li>
+                            <li>Click <strong>Custom domains</strong></li>
+                            <li>Click <strong>Add domain</strong></li>
+                            <li>Enter your domain (e.g. example.com) and follow the prompts</li>
+                            <li>Cloudflare will verify ownership and issue a free SSL certificate</li>
+                        </ol>
+                        <div class="mt-6 p-5 bg-sky-50 rounded-2xl text-sm">
+                            <strong>Pro Tip:</strong> You can also connect an existing workers.dev subdomain to your custom domain.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="heading-font text-3xl font-semibold mt-16 mb-6">Need Help?</h2>
+            <div class="bg-white border border-emerald-200 rounded-3xl p-10 text-center">
+                <div class="max-w-md mx-auto">
+                    <i class="fa-solid fa-headset text-5xl text-emerald-500 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-4">Stuck? Get Personalized Help</h3>
+                    <p class="text-zinc-600 mb-8">
+                        Reach out to Ryan for expert guidance on your deployment or custom project.
+                    </p>
+                    <a href="mailto:Ryan@diyregistry.com" 
+                       class="inline-flex items-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-8 py-4 rounded-2xl mb-6">
+                        Email Ryan@diyregistry.com
+                    </a>
+                    <p class="text-sm text-zinc-500">
+                        Or visit <a href="https://diyregistry.com" target="_blank" class="underline hover:text-emerald-600">diyregistry.com</a> for more inspiration, templates, and ready-made solutions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-3xl p-12">
+                <div class="max-w-lg">
+                    <h3 class="text-3xl font-semibold mb-4">Your site is now live!</h3>
+                    <p class="opacity-90 mb-8">Enjoy instant global performance, DDoS protection, and free HTTPS.</p>
+                    <a href="https://dash.cloudflare.com" target="_blank" 
+                       class="inline-flex items-center gap-3 bg-white text-sky-700 font-semibold px-8 py-4 rounded-2xl hover:bg-white/90">
+                        Go to Cloudflare Dashboard →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-zinc-900 text-zinc-400 py-16">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <div class="w-9 h-9 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">S</div>
+                <span class="text-2xl font-semibold text-white">SignInUp.com</span>
+            </div>
+            <p>Making web deployment simple for everyone</p>
+        </div>
+    </footer>
+</body>
+</html>
