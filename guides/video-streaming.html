@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Videos &amp; Images for Free with Cloudflare Pages + R2 | SignInUp.com</title>
+    <meta name="description" content="Learn how to upload and stream videos and images on your website completely free using Cloudflare R2 and Pages.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        .code-block { background: #0f172a; color: #e2e8f0; font-family: ui-monospace, monospace; }
+        .video-dropzone {
+            border: 3px dashed #64748b;
+            transition: all 0.3s;
+        }
+        .video-dropzone.dragover {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 text-zinc-900">
+    <!-- Navbar -->
+    <nav class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-orange-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">S</div>
+                <div class="font-semibold text-2xl tracking-tighter">SignInUp</div>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="../index.html" class="hover:text-orange-600">Home</a>
+                <a href="cloud-ai.html" class="hover:text-orange-600">Cloud &amp; AI</a>
+                <a href="#" class="text-orange-600 font-semibold">Hosting Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <div class="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-1.5 rounded-full text-sm mb-6">
+            <i class="fa-solid fa-video"></i>
+            Media Hosting • Cloudflare R2
+        </div>
+        
+        <h1 class="heading-font text-5xl font-semibold tracking-tighter leading-none mb-6">
+            Host Videos &amp; Photos for Free on Your Website (Cloudflare R2 + Pages)
+        </h1>
+        <p class="text-xl text-zinc-600 mb-8">
+            Store and serve unlimited media files with excellent performance and no egress fees.
+        </p>
+
+        <div class="prose prose-zinc max-w-none">
+            <h2 class="heading-font text-3xl font-semibold mt-12 mb-6">Why This Stack?</h2>
+            <ul class="list-disc pl-6 space-y-3 text-lg">
+                <li>Completely free for moderate usage</li>
+                <li>Global CDN with low latency</li>
+                <li>No egress fees (unlike AWS S3)</li>
+                <li>Easy integration with Cloudflare Pages</li>
+            </ul>
+
+            <h2 class="heading-font text-3xl font-semibold mt-16 mb-8">Step-by-Step Guide</h2>
+
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="bg-orange-600 w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">1</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-3">Create an R2 Bucket</h3>
+                        <p>Go to Cloudflare Dashboard → R2 → Create Bucket. Give it a name like <code>my-media-bucket</code>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="bg-orange-600 w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">2</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-3">Upload Files</h3>
+                        <p>Use the R2 dashboard or Wrangler CLI:</p>
+                        <div class="code-block rounded-2xl p-6 text-sm mt-4">
+                            wrangler r2 bucket create my-media-bucket<br>
+                            wrangler r2 object put my-media-bucket/videos/demo.mp4 --file ./demo.mp4
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="bg-orange-600 w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">3</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-3">Make Files Public</h3>
+                        <p>In R2 settings, enable public access or use custom domain + CORS rules.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-zinc-200 rounded-3xl p-8 mb-10">
+                <div class="flex gap-6">
+                    <div class="bg-orange-600 w-12 h-12 flex-shrink-0 rounded-2xl text-white font-bold flex items-center justify-center text-2xl">4</div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-semibold mb-3">Deploy Static Site on Pages</h3>
+                        <p>Use Wrangler or Git integration to deploy your HTML site that references R2 files.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="heading-font text-3xl font-semibold mt-16 mb-8">Live Demo: Video Player</h2>
+            <p class="mb-6 text-zinc-600">Try dragging &amp; dropping an MP4 file or clicking to select one.</p>
+
+            <!-- Video Player Demo -->
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-zinc-100">
+                <div id="dropzone" 
+                     class="video-dropzone p-12 text-center cursor-pointer">
+                    <i class="fa-solid fa-cloud-arrow-up text-6xl text-zinc-400 mb-6"></i>
+                    <p class="text-lg font-medium">Drop video here or <span class="text-orange-600 underline">browse files</span></p>
+                    <input type="file" id="fileInput" accept="video/mp4" class="hidden">
+                </div>
+                
+                <div class="p-6 bg-zinc-900">
+                    <video id="videoPlayer" controls class="w-full rounded-2xl bg-black max-h-[500px]">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
+            <div class="mt-12 p-8 bg-amber-50 border border-amber-200 rounded-3xl">
+                <h3 class="font-semibold mb-4">How to Use in Your HTML</h3>
+                <div class="code-block rounded-2xl p-6 text-sm">
+&lt;video controls&gt;<br>
+&nbsp;&nbsp;&lt;source src="https://pub-xxx.r2.dev/videos/your-video.mp4" type="video/mp4"&gt;<br>
+&lt;/video&gt;
+                </div>
+            </div>
+
+            <div class="mt-20 text-center">
+                <a href="https://dash.cloudflare.com" target="_blank"
+                   class="inline-flex items-center gap-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold px-10 py-4 rounded-2xl text-lg">
+                    Start with Cloudflare R2 →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-zinc-900 text-zinc-400 py-16">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <div class="w-9 h-9 bg-orange-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">S</div>
+                <span class="text-2xl font-semibold text-white">SignInUp.com</span>
+            </div>
+            <p>Making web hosting simple for everyone</p>
+        </div>
+    </footer>
+
+    <script>
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const videoPlayer = document.getElementById('videoPlayer');
+
+        // Click to browse
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            handleFile(e.target.files[0]);
+        });
+
+        // Drag and drop
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('dragover');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('dragover');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('video/')) {
+                alert("Please upload a valid MP4 video file.");
+                return;
+            }
+            const url = URL.createObjectURL(file);
+            videoPlayer.src = url;
+            videoPlayer.play();
+        }
+    </script>
+</body>
+</html>
